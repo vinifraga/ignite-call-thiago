@@ -2,9 +2,11 @@ import { Button, Heading, MultiStep, Text } from '@ignite-ui/react'
 import { Container, Header } from '../styles'
 import { ArrowRight } from 'phosphor-react'
 import { ConnectBox, ConnectItem } from './styles'
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 
 export default function ConnectCalendar() {
+  const { data } = useSession()
+  console.log('🚀 ~ ConnectCalendar ~ data:', data)
   return (
     <Container>
       <Header>
