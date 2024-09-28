@@ -10,11 +10,9 @@ export function PrismaAdapter(
   return {
     async createUser(user) {
       const { '@ignitecall:userId': userIdOnCookies } = parseCookies({ req })
-
       if (!userIdOnCookies) {
         throw new Error('User ID not found on cookies.')
       }
-
       const prismaUser = await prisma.user.update({
         where: {
           id: userIdOnCookies,
@@ -23,14 +21,11 @@ export function PrismaAdapter(
           name: user.name,
           email: user.email,
           avatar_url: user.avatar_url,
-          username: user.username,
         },
       })
-
       destroyCookie({ res }, '@ignitecall:userId', {
         path: '/',
       })
-
       return {
         id: prismaUser.id,
         name: prismaUser.name,
@@ -42,11 +37,15 @@ export function PrismaAdapter(
     },
 
     async getUser(id) {
-      const user = await prisma.user.findUniqueOrThrow({
+      const user = await prisma.user.findUnique({
         where: {
           id,
         },
       })
+
+      if (!user) {
+        return null
+      }
 
       return {
         id: user.id,
@@ -58,11 +57,15 @@ export function PrismaAdapter(
       }
     },
     async getUserByEmail(email) {
-      const user = await prisma.user.findUniqueOrThrow({
+      const user = await prisma.user.findUnique({
         where: {
           email,
         },
       })
+
+      if (!user) {
+        return null
+      }
 
       return {
         id: user.id,
@@ -74,7 +77,7 @@ export function PrismaAdapter(
       }
     },
     async getUserByAccount({ providerAccountId, provider }) {
-      const { user } = await prisma.account.findUniqueOrThrow({
+      const account = await prisma.account.findUnique({
         where: {
           provider_provider_account_id: {
             provider,
@@ -86,13 +89,17 @@ export function PrismaAdapter(
         },
       })
 
+      if (!account) {
+        return null
+      }
+
       return {
-        id: user.id,
-        name: user.name,
-        username: user.username,
-        email: user.email!,
+        id: account.user.id,
+        name: account.user.name,
+        username: account.user.username,
+        email: account.user.email!,
         emailVerified: null,
-        avatar_url: user.avatar_url!,
+        avatar_url: account.user.avatar_url!,
       }
     },
     async updateUser(user) {

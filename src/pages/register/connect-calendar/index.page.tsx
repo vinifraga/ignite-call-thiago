@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 
 export default function ConnectCalendar() {
   const session = useSession()
+
   const router = useRouter()
 
   const hasAuthError = !!router.query.error
@@ -15,7 +16,7 @@ export default function ConnectCalendar() {
   async function handleConnectCalendar() {
     await signIn('google')
   }
-
+  console.log('🚀 ~ ConnectCalendar ~ session:', session)
   return (
     <Container>
       <Header>
