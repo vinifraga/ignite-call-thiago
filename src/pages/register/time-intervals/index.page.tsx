@@ -103,10 +103,10 @@ export default function TimeIntervals() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async function handleSetTimeIntervals(data: any) {
     // foi utilizado o any para resolver o erro do react-hook-form
-    const formData = data as TimeIntervalsFormOutput
+    const { intervals } = data as TimeIntervalsFormOutput
 
     await api.post('/users/time-intervals', {
-      intervals: formData.intervals,
+      intervals,
     })
   }
 
