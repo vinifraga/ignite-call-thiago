@@ -21,6 +21,7 @@ import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { getWeekDays } from '@/utils/get-week-days'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { convertTimeStringToMinutes } from '@/utils/convert-time-string-to-minutes'
+import { api } from '@/lib/axios'
 
 const timeIntervalsFormSchema = z.object({
   intervals: z
@@ -103,7 +104,10 @@ export default function TimeIntervals() {
   async function handleSetTimeIntervals(data: any) {
     // foi utilizado o any para resolver o erro do react-hook-form
     const formData = data as TimeIntervalsFormOutput
-    console.log(formData)
+
+    await api.post('/users/time-intervals', {
+      intervals: formData.intervals,
+    })
   }
 
   return (
