@@ -33,7 +33,6 @@ export default async function handler(
   }
 
   const { intervals } = timeIntervalsBodySchema.parse(req.body)
-  console.log('🚀 ~ intervals:', intervals)
 
   // await prisma.userTimeInterval.createMany({}) usar isso quando trocar o sqLite
 
