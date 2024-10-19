@@ -1,14 +1,76 @@
 import { styled, Text } from '@ignite-ui/react'
 
-export const CalendarContainer = styled('div', {})
+export const CalendarContainer = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$6',
+  padding: '$6',
+})
 
-export const CalendarHeader = styled('div', {})
+export const CalendarHeader = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+})
 
-export const CalendarTitle = styled(Text, {})
+export const CalendarTitle = styled(Text, {
+  fontWeight: '$medium',
 
-export const CalendarActions = styled('div', {})
+  span: {
+    color: '$gray200',
+  },
+})
 
-export const CalendarBody = styled('table', {})
+export const CalendarActions = styled('div', {
+  display: 'flex',
+  gap: '$2',
+  color: '$gray200',
+
+  button: {
+    all: 'unset',
+    cursor: 'pointer',
+    lineHeight: 0,
+    borderRadius: '$sm',
+
+    svg: {
+      width: '$5',
+      height: '$5',
+    },
+
+    '&:hover': {
+      color: '$gray100',
+    },
+
+    '&:focus': {
+      boxShadow: '0 0 0 2px $colors$gray100',
+    },
+  },
+})
+
+export const CalendarBody = styled('table', {
+  width: '100%',
+  fontFamily: '$default',
+  borderCollapse: 'separate',
+  borderSpacing: '0.25rem',
+  tableLayout: 'fixed',
+
+  'thread th': {
+    color: '$gray200',
+    fontWeight: '$medium',
+    fontSize: '$sm',
+  },
+
+  'tbody:before': {
+    content: '.',
+    lineHeight: '0.75rem',
+    display: 'block',
+    color: '$gray800',
+  },
+
+  'tbody td': {
+    boxSizing: 'border-box',
+  },
+})
 
 export const CalendarDay = styled('button', {
   all: 'unset',
@@ -18,6 +80,7 @@ export const CalendarDay = styled('button', {
   textAlign: 'center',
   borderRadius: '$sm',
   cursor: 'pointer',
+
   '&:disabled': {
     cursor: 'default',
     background: 'none',
@@ -26,6 +89,7 @@ export const CalendarDay = styled('button', {
   '&:not(:disabled):hover': {
     background: '$gray500',
   },
+
   '&:focus': {
     outline: 'none',
     boxShadow: '0 0 0 2px $colors$gray100',
