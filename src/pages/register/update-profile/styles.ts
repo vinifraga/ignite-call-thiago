@@ -11,6 +11,10 @@ export const ProfileBox = styled(Box, {
     flexDirection: 'column',
     gap: '$2',
   },
+
+  'label:first-of-type': {
+    alignItems: 'center',
+  },
 })
 
 export const FormAnnotation = styled(Text, {
