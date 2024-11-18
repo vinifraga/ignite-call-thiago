@@ -8,22 +8,45 @@ import {
   CalendarTitle,
 } from './styles'
 import { getWeekDays } from '@/utils/get-week-days'
+import { useState } from 'react'
+import dayjs from 'dayjs'
 
 export function Calendar() {
+  const [currentDate, setCurrentDate] = useState(() => {
+    return dayjs().set('date', 1)
+  })
+
+  function handlePreviousMonth() {
+    const previousMonthDate = currentDate.subtract(1, 'month')
+    setCurrentDate(previousMonthDate)
+  }
+
+  function handleNextMonth() {
+    const previousNextMonthDate = currentDate.add(1, 'month')
+    setCurrentDate(previousNextMonthDate)
+  }
+
   const shortWeekDays = getWeekDays({ short: true })
+
+  const currentMonth = currentDate.format('MMMM')
+  const currentYear = currentDate.format('YYYY')
 
   return (
     <CalendarContainer>
       <CalendarHeader>
         <CalendarTitle>
-          Outubro <span>2024</span>
+          {currentMonth} <span>{currentYear}</span>
         </CalendarTitle>
 
         <CalendarActions>
-          <button type="button">
+          <button
+            type="button"
+            onClick={handlePreviousMonth}
+            title="previous month"
+          >
             <CaretLeft />
           </button>
-          <button type="button">
+          <button type="button" onClick={handleNextMonth} title="next month">
             <CaretRight />
           </button>
         </CalendarActions>
