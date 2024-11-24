@@ -36,7 +36,7 @@ export const TimerPicker = styled('div', {
 })
 
 export const TimerPickerHeader = styled(Text, {
-  fontWeight: '$medium',
+  fontWeight: '$regular',
 
   span: {
     color: '$gray200',

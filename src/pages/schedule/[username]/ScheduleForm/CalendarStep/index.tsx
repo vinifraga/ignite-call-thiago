@@ -11,9 +11,14 @@ import dayjs from 'dayjs'
 import { useRouter } from 'next/router'
 import { api } from '@/lib/axios'
 
+interface Availability {
+  possibleTimes: number[]
+  availableTimes: number[]
+}
+
 export function CalendarStep() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
-  const [availability, setAvailability] = useState<number[]>([])
+  const [availability, setAvailability] = useState<Availability | null>(null)
 
   const router = useRouter()
 
@@ -37,8 +42,7 @@ export function CalendarStep() {
         },
       })
       .then((response) => {
-        console.log('🚀 ~ .then ~ response:', response)
-        setAvailability(response.data.availability)
+        setAvailability(response.data)
       })
   }, [selectedDate, username])
 
@@ -53,20 +57,16 @@ export function CalendarStep() {
           </TimerPickerHeader>
 
           <TimerPickerList>
-            <TimerPickerItem>08:00h</TimerPickerItem>
-            <TimerPickerItem>08:30h</TimerPickerItem>
-            <TimerPickerItem>09:00h</TimerPickerItem>
-            <TimerPickerItem>09:30h</TimerPickerItem>
-            <TimerPickerItem>10:00h</TimerPickerItem>
-            <TimerPickerItem>10:30h</TimerPickerItem>
-            <TimerPickerItem>11:00h</TimerPickerItem>
-            <TimerPickerItem>11:30h</TimerPickerItem>
-            <TimerPickerItem>12:00h</TimerPickerItem>
-            <TimerPickerItem>12:30h</TimerPickerItem>
-            <TimerPickerItem>13:00h</TimerPickerItem>
-            <TimerPickerItem>13:30h</TimerPickerItem>
-            <TimerPickerItem>14:00h</TimerPickerItem>
-            <TimerPickerItem>14:30h</TimerPickerItem>
+            {availability?.possibleTimes?.map((hour) => {
+              return (
+                <TimerPickerItem
+                  key={hour}
+                  disabled={!availability.availableTimes.includes(hour)}
+                >
+                  {String(hour).padStart(2, '0')}:00h
+                </TimerPickerItem>
+              )
+            })}
           </TimerPickerList>
         </TimerPicker>
       )}
