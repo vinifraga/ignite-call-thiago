@@ -34,6 +34,7 @@ interface CalendarProps {
   onDateSelected?: (date: Date) => void
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function Calendar({ onDateSelected, selectedDate }: CalendarProps) {
   const [currentDate, setCurrentDate] = useState(() => {
     return dayjs().set('date', 1)
@@ -42,9 +43,7 @@ export function Calendar({ onDateSelected, selectedDate }: CalendarProps) {
   const router = useRouter()
 
   function handlePreviousMonth() {
-    const previousMonthDate = selectedDate
-      ? currentDate.subtract(1, 'month')
-      : currentDate.subtract(1, 'month')
+    const previousMonthDate = currentDate.subtract(1, 'month')
     setCurrentDate(previousMonthDate)
   }
 
