@@ -42,7 +42,9 @@ export function Calendar({ onDateSelected, selectedDate }: CalendarProps) {
   const router = useRouter()
 
   function handlePreviousMonth() {
-    const previousMonthDate = currentDate.subtract(1, 'month')
+    const previousMonthDate = selectedDate
+      ? currentDate.subtract(1, 'month')
+      : currentDate.subtract(1, 'month')
     setCurrentDate(previousMonthDate)
   }
 
