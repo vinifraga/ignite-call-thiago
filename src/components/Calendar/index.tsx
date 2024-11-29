@@ -7,12 +7,14 @@ import {
   CalendarHeader,
   CalendarTitle,
 } from './styles'
-import { getWeekDays } from '@/utils/get-week-days'
+
 import { useMemo, useState } from 'react'
 import dayjs from 'dayjs'
 import { useQuery } from '@tanstack/react-query'
-import { api } from '@/lib/axios'
+
 import { useRouter } from 'next/router'
+import { getWeekDays } from '../../utils/get-week-days'
+import { api } from '../../lib/axios'
 
 interface CalendarWeek {
   week: number

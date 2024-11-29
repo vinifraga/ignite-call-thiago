@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next'
+import { buildNextAuthOptions } from '../../api/auth/[...nextauth].api'
 import { getServerSession } from 'next-auth'
-import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
 import { useSession } from 'next-auth/react'
 import {
   Avatar,
@@ -16,9 +16,9 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Container, Header } from '../styles'
 import { FormAnnotation, ProfileBox } from './styles'
-import { api } from '@/lib/axios'
 import { useRouter } from 'next/router'
 import { NextSeo } from 'next-seo'
+import { api } from '../../../lib/axios'
 
 const updateProfileFormFormSchema = z.object({
   bio: z.string(),

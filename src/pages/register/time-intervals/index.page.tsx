@@ -18,12 +18,14 @@ import {
 import { ArrowRight } from 'phosphor-react'
 import { z } from 'zod'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
-import { getWeekDays } from '@/utils/get-week-days'
+
 import { zodResolver } from '@hookform/resolvers/zod'
-import { convertTimeStringToMinutes } from '@/utils/convert-time-string-to-minutes'
-import { api } from '@/lib/axios'
+
 import { useRouter } from 'next/router'
 import { NextSeo } from 'next-seo'
+import { getWeekDays } from '../../../utils/get-week-days'
+import { api } from '../../../lib/axios'
+import { convertTimeStringToMinutes } from '../../../utils/convert-time-string-to-minutes'
 
 const timeIntervalsFormSchema = z.object({
   intervals: z

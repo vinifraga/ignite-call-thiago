@@ -1,5 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { prisma } from '@/lib/prisma'
+import { prisma } from '../../../lib/prisma'
 import { Avatar, Heading, Text } from '@ignite-ui/react'
 import { Container, UserHeader } from './styles'
 import { ScheduleForm } from './ScheduleForm'
@@ -12,6 +12,7 @@ interface ScheduleProps {
     avatarUrl: string
   }
 }
+
 export default function Schedule({ user }: ScheduleProps) {
   return (
     <>

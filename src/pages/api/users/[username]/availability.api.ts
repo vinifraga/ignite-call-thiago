@@ -1,8 +1,9 @@
 /* eslint-disable camelcase */
 import { NextApiRequest, NextApiResponse } from 'next'
-import { prisma } from '@/lib/prisma'
+
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
+import { prisma } from '../../../../lib/prisma'
 
 dayjs.extend(utc)
 
