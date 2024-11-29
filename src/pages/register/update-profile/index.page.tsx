@@ -1,6 +1,7 @@
 import { GetServerSideProps } from 'next'
+// eslint-disable-next-line camelcase
+import { unstable_getServerSession } from 'next-auth'
 import { buildNextAuthOptions } from '../../api/auth/[...nextauth].api'
-import { getServerSession } from 'next-auth'
 import { useSession } from 'next-auth/react'
 import {
   Avatar,
@@ -90,7 +91,7 @@ export default function UpdateProfile() {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await getServerSession(
+  const session = await unstable_getServerSession(
     req,
     res,
     buildNextAuthOptions(req, res),

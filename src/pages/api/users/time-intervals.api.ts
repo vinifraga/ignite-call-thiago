@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { buildNextAuthOptions } from '../auth/[...nextauth].api'
-import { getServerSession } from 'next-auth'
+// eslint-disable-next-line camelcase
+import { unstable_getServerSession } from 'next-auth'
 import { z } from 'zod'
 import { prisma } from '../../../lib/prisma'
 
@@ -22,7 +23,7 @@ export default async function handler(
     return res.status(405).end()
   }
 
-  const session = await getServerSession(
+  const session = await unstable_getServerSession(
     req,
     res,
     buildNextAuthOptions(req, res),
