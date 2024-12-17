@@ -9,7 +9,7 @@ export function PrismaAdapter(
   res: NextApiResponse | NextPageContext['res'],
 ): Adapter {
   return {
-    async createUser(user: AdapterUser) {
+    async createUser(user) {
       const { '@ignitecall:userId': userIdOnCookies } = parseCookies({ req })
       if (!userIdOnCookies) {
         throw new Error('User ID not found on cookies.')
@@ -125,7 +125,7 @@ export function PrismaAdapter(
       }
     },
 
-    async linkAccount(account: AdapterAccount) {
+    async linkAccount(account) {
       await prisma.account.create({
         data: {
           user_id: account.userId,

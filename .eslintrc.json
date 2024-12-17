@@ -1,4 +1,8 @@
 {
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off", 
+    "@typescript-eslint/no-misused-promises": "off"
+  },
   "extends": [
     "@rocketseat/eslint-config/react",
     "next/core-web-vitals"
