@@ -10,9 +10,11 @@ export function PrismaAdapter(
   return {
     async createUser(user) {
       const { '@ignitecall:userId': userIdOnCookies } = parseCookies({ req })
+
       if (!userIdOnCookies) {
         throw new Error('User ID not found on cookies.')
       }
+
       const prismaUser = await prisma.user.update({
         where: {
           id: userIdOnCookies,
@@ -23,9 +25,11 @@ export function PrismaAdapter(
           avatar_url: user.avatar_url,
         },
       })
+
       destroyCookie({ res }, '@ignitecall:userId', {
         path: '/',
       })
+
       return {
         id: prismaUser.id,
         name: prismaUser.name,
@@ -93,15 +97,18 @@ export function PrismaAdapter(
         return null
       }
 
+      const { user } = account
+
       return {
-        id: account.user.id,
-        name: account.user.name,
-        username: account.user.username,
-        email: account.user.email!,
+        id: user.id,
+        name: user.name,
+        username: user.username,
+        email: user.email!,
         emailVerified: null,
-        avatar_url: account.user.avatar_url!,
+        avatar_url: user.avatar_url!,
       }
     },
+
     async updateUser(user) {
       const prismaUser = await prisma.user.update({
         where: {
@@ -152,13 +159,14 @@ export function PrismaAdapter(
       })
 
       return {
-        sessionToken,
         userId,
+        sessionToken,
         expires,
       }
     },
+
     async getSessionAndUser(sessionToken) {
-      const session = await prisma.session.findUnique({
+      const prismaSession = await prisma.session.findUnique({
         where: {
           session_token: sessionToken,
         },
@@ -167,16 +175,17 @@ export function PrismaAdapter(
         },
       })
 
-      if (!session) {
+      if (!prismaSession) {
         return null
       }
 
-      const { user, ...sessionProps } = session
+      const { user, ...session } = prismaSession
+
       return {
         session: {
-          userId: user.id,
-          expires: sessionProps.expires,
-          sessionToken: sessionProps.session_token,
+          userId: session.user_id,
+          expires: session.expires,
+          sessionToken: session.session_token,
         },
         user: {
           id: user.id,
@@ -188,7 +197,8 @@ export function PrismaAdapter(
         },
       }
     },
-    async updateSession({ sessionToken, expires, userId }) {
+
+    async updateSession({ sessionToken, userId, expires }) {
       const prismaSession = await prisma.session.update({
         where: {
           session_token: sessionToken,
